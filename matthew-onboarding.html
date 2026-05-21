@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Foundation — Project Onboarding Guide</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink:      #0f172a;
+  --mid:      #334155;
+  --soft:     #64748b;
+  --pale:     #94a3b8;
+  --blue:     #2563eb;
+  --blue-dim: #dbeafe;
+  --blue-dk:  #1e40af;
+  --surface:  #f8fafc;
+  --rule:     #e2e8f0;
+  --white:    #ffffff;
+  --sans:     'DM Sans', sans-serif;
+  --serif:    'DM Serif Display', serif;
+  --r:        6px;
+  --max:      720px;
+  --pad:      clamp(20px, 5vw, 48px);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  color: var(--ink);
+  background: var(--white);
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Layout ── */
+.wrap {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--pad);
+}
+
+/* ── Cover ── */
+.cover {
+  background: var(--surface);
+  border-bottom: 1px solid var(--rule);
+  padding: clamp(40px, 8vw, 80px) var(--pad) clamp(32px, 6vw, 60px);
+}
+
+.cover-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+}
+
+.cover-stripe {
+  width: 32px;
+  height: 2px;
+  background: var(--blue);
+  margin-bottom: 24px;
+}
+
+.cover-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 16px;
+}
+
+.cover-title {
+  font-family: var(--serif);
+  font-size: clamp(36px, 7vw, 56px);
+  line-height: 1.05;
+  color: var(--ink);
+  margin-bottom: 16px;
+}
+
+.cover-title em {
+  font-style: italic;
+  color: var(--blue);
+}
+
+.cover-sub {
+  font-size: clamp(15px, 2vw, 17px);
+  font-weight: 300;
+  color: var(--soft);
+  max-width: 480px;
+  line-height: 1.55;
+  margin-bottom: 40px;
+}
+
+.cover-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-top: 24px;
+  border-top: 1px solid var(--rule);
+}
+
+.cover-footer-l,
+.cover-footer-r {
+  font-size: 12px;
+  color: var(--pale);
+  line-height: 1.7;
+}
+
+.cover-footer-r { text-align: right; }
+
+/* ── Nav ── */
+.nav {
+  position: sticky;
+  top: 0;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--rule);
+  z-index: 100;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.nav::-webkit-scrollbar { display: none; }
+
+.nav-inner {
+  display: flex;
+  gap: 0;
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--pad);
+}
+
+.nav-link {
+  display: block;
+  padding: 14px 16px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--soft);
+  text-decoration: none;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.nav-link:hover {
+  color: var(--blue);
+  border-bottom-color: var(--blue-dim);
+}
+
+/* ── Main content ── */
+.main {
+  padding: clamp(32px, 6vw, 64px) var(--pad);
+}
+
+/* ── Section ── */
+.section {
+  max-width: var(--max);
+  margin: 0 auto 48px;
+}
+
+.section:last-child { margin-bottom: 0; }
+
+.section-eyebrow {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 6px;
+}
+
+h1.section-title {
+  font-family: var(--serif);
+  font-size: clamp(24px, 4vw, 32px);
+  line-height: 1.15;
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+
+.section-rule {
+  height: 1px;
+  background: var(--rule);
+  margin-bottom: 24px;
+}
+
+h2 {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--pale);
+  margin-top: 28px;
+  margin-bottom: 10px;
+}
+
+h2:first-child { margin-top: 0; }
+
+p {
+  color: var(--mid);
+  margin-bottom: 16px;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+p:last-child { margin-bottom: 0; }
+
+/* ── Row system ──
+   Desktop: two columns side by side
+   Mobile:  label stacks above body
+────────────────── */
+.rows-group {
+  border-top: 1px solid var(--rule);
+}
+
+.row { border-bottom: 1px solid var(--rule); }
+
+.row-inner {
+  display: flex;
+  gap: 20px;
+  padding: 14px 0;
+  align-items: baseline;
+}
+
+.col-label {
+  width: 140px;
+  flex-shrink: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+.col-label .muted {
+  font-weight: 400;
+  color: var(--soft);
+  font-size: 13px;
+  display: block;
+}
+
+.col-body {
+  flex: 1;
+  font-size: 15px;
+  color: var(--mid);
+  line-height: 1.65;
+  min-width: 0;
+}
+
+.col-num {
+  width: 28px;
+  flex-shrink: 0;
+  font-family: var(--serif);
+  font-size: 20px;
+  color: var(--blue);
+  line-height: 1.2;
+  padding-top: 1px;
+}
+
+/* milestone: top-aligned, wider label */
+.row-inner.milestone {
+  align-items: flex-start;
+  padding: 16px 0;
+}
+
+.row-inner.milestone .col-label { width: 160px; }
+
+/* ── Callout ── */
+.callout {
+  border-left: 3px solid var(--blue);
+  background: var(--blue-dim);
+  padding: 14px 18px;
+  border-radius: 0 var(--r) var(--r) 0;
+  margin-top: 20px;
+}
+
+.callout p {
+  font-size: 14px;
+  color: var(--blue-dk);
+  margin: 0;
+  line-height: 1.65;
+}
+
+/* ── Chips ── */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.chip {
+  background: var(--ink);
+  color: var(--white);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+.chip.secondary {
+  background: var(--surface);
+  color: var(--soft);
+  border: 1px solid var(--rule);
+}
+
+/* ── Pricing table ── */
+.pricing-wrap {
+  margin: 20px 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: var(--r);
+  border: 1px solid var(--rule);
+}
+
+.pricing-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 480px;
+}
+
+.pricing-table th {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--pale);
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 2px solid var(--rule);
+  background: var(--surface);
+}
+
+.pricing-table th.right { text-align: right; }
+
+.pricing-table td {
+  font-size: 14px;
+  color: var(--mid);
+  padding: 12px 12px;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+  line-height: 1.55;
+}
+
+.pricing-table td.amount {
+  text-align: right;
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.pricing-table td.label  { font-weight: 600; color: var(--ink); width: 110px; }
+.pricing-table td.when   { font-size: 13px; color: var(--soft); width: 120px; }
+
+.pricing-table tr.deposit td { background: var(--blue-dim); }
+.pricing-table tr.deposit td.label  { color: var(--blue-dk); }
+.pricing-table tr.deposit td.amount { color: var(--blue-dk); }
+.pricing-table tr.deposit td.when   { color: var(--blue-dk); }
+
+.pricing-table tr.total td {
+  border-top: 2px solid var(--rule);
+  border-bottom: none;
+  font-weight: 700;
+  color: var(--ink);
+  background: var(--surface);
+}
+
+.pricing-table tr.total td.amount { font-size: 15px; }
+
+/* ── Next steps ── */
+.next-steps {
+  margin-top: 32px;
+  border: 1px solid var(--rule);
+  border-radius: var(--r);
+  overflow: hidden;
+}
+
+.next-steps-heading {
+  font-family: var(--serif);
+  font-size: 20px;
+  color: var(--ink);
+  padding: 16px 20px 14px;
+  border-bottom: 1px solid var(--rule);
+  background: var(--surface);
+}
+
+.next-steps-row {
+  display: flex;
+  gap: 16px;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--rule);
+  align-items: baseline;
+}
+
+.next-steps-row:last-child { border-bottom: none; }
+
+.next-steps-num {
+  width: 24px;
+  flex-shrink: 0;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--blue);
+  padding-top: 2px;
+}
+
+.next-steps-text {
+  font-size: 14px;
+  color: var(--mid);
+  line-height: 1.6;
+}
+
+.next-steps-text strong { color: var(--ink); font-weight: 600; }
+
+/* ── MOBILE BREAKPOINT ──────────────────────────
+   At 560px and below, stack label above body.
+   The two-column row becomes a single column
+   with the label as a small-caps header.
+──────────────────────────────────────────────── */
+@media (max-width: 560px) {
+
+  .row-inner {
+    flex-direction: column;
+    gap: 4px;
+    padding: 14px 0;
+    align-items: flex-start;
+  }
+
+  .col-label {
+    width: auto;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--blue);
+  }
+
+  .col-label .muted {
+    display: none;
+  }
+
+  .col-body {
+    font-size: 15px;
+  }
+
+  .col-num {
+    font-size: 18px;
+    width: auto;
+    margin-bottom: 2px;
+  }
+
+  .row-inner.milestone {
+    gap: 4px;
+    padding: 16px 0;
+  }
+
+  .row-inner.milestone .col-label {
+    width: auto;
+  }
+
+  .next-steps-row {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .next-steps-num {
+    width: auto;
+  }
+
+  .cover-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cover-footer-r { text-align: left; }
+
+  .nav-link {
+    padding: 12px 12px;
+    font-size: 11px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-inner">
+    <div class="cover-stripe"></div>
+    <div class="cover-eyebrow">Client Onboarding Guide · 2026</div>
+    <h1 class="cover-title">Digital<br><em>Foundation</em></h1>
+    <p class="cover-sub">Your complete website brief for the Solar Mobile Units project.</p>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-link" href="#overview">Overview</a>
+    <a class="nav-link" href="#technical">Technical</a>
+    <a class="nav-link" href="#seo">Search</a>
+    <a class="nav-link" href="#getting-started">Getting Started</a>
+    <a class="nav-link" href="#milestones">Milestones</a>
+    <a class="nav-link" href="#payments">Payments</a>
+    <a class="nav-link" href="#after-launch">After Launch</a>
+    <a class="nav-link" href="#faq">FAQ</a>
+    <a class="nav-link" href="#terms">Terms</a>
+  </div>
+</nav>
+
+<main class="main">
+
+  <!-- OVERVIEW -->
+  <div class="section" id="overview">
+    <span class="section-eyebrow">Overview</span>
+    <h1 class="section-title">What to Expect From Your Website</h1>
+    <div class="section-rule"></div>
+    <p>Your website is built to be a permanent, productive part of your business from the moment it goes live. From day one, it will be fully operational — easy to navigate on mobile, technically configured so that search engines can read and index your content accurately, and ready to receive customer enquiries straight away. It is designed to grow alongside your business without ever needing to be rebuilt from scratch.</p>
+    <p>Together, we are establishing a digital presence built around your mobile solar units. As we map out the specific details of your offering, the site will be designed to clearly demonstrate your core proposition: providing a dependable, clean power solution tailored for mobile, agricultural, or domestic environments.</p>
+
+    <h2 style="margin-top:28px">The Modular Growth Plan</h2>
+    <p>Your website is built using a phased approach, so you are never paying for features your business isn't ready for yet. Each version is complete and fully functional on its own, with room to expand when the time is right.</p>
+    <div class="rows-group">
+      <div class="row"><div class="row-inner">
+        <div class="col-label">Version 1<span class="muted">The Foundation</span></div>
+        <div class="col-body">A complete, high-performance website with all the core functions required to launch successfully. It delivers a fully rounded user experience, solid local search visibility, and immediate enquiry capabilities from day one.</div>
+      </div></div>
+      <div class="row"><div class="row-inner">
+        <div class="col-label">Future Versions</div>
+        <div class="col-body">As you gather real-world feedback and build momentum, the site is designed to scale with you. Future versions can introduce things like a content dashboard so you can update the site yourself, a hire or booking request system, a live product catalogue with pricing, customer account areas, or integrations with third-party tools like CRMs or accounting software. These are layered on top of the existing foundation — nothing gets rebuilt, and you only invest in the next stage when your business is ready for it.</div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- SECTION 01: TECHNICAL -->
+  <div class="section" id="technical">
+    <span class="section-eyebrow">Section 01</span>
+    <h1 class="section-title">Technical Decisions &amp; Stack</h1>
+    <div class="section-rule"></div>
+    <p>Your site is custom-built using a modern, professional development stack: <strong>Astro, React, Tailwind CSS v4, and Motion</strong>, deployed on <strong>Cloudflare Pages</strong>. This gives you a fast, secure, and future-ready website — without the bloated code and ongoing maintenance that comes with off-the-shelf templates.</p>
+    <p>Here is why each of these choices matters for your business:</p>
+    <div class="chips">
+      <span class="chip">Astro</span>
+      <span class="chip">React</span>
+      <span class="chip">Tailwind CSS v4</span>
+      <span class="chip">Motion</span>
+      <span class="chip">Cloudflare Pages</span>
+      <span class="chip secondary">Cloudflare D1 (future)</span>
+    </div>
+    <div class="rows-group">
+      <div class="row"><div class="row-inner">
+        <div class="col-label">Speed</div>
+        <div class="col-body">Search engines prioritise fast-loading sites. Your customers — whether on a mobile phone in a field, on a farm, or at home — will get an instant, reliable experience every time they visit.</div>
+      </div></div>
+      <div class="row"><div class="row-inner">
+        <div class="col-label">Security &amp; Maintenance</div>
+        <div class="col-body">Cloudflare hosting means there is no database to hack or exploit on day one, resulting in zero ongoing system updates or security vulnerabilities for you to worry about.</div>
+      </div></div>
+      <div class="row"><div class="row-inner">
+        <div class="col-label">Room to Grow</div>
+        <div class="col-body">When your business is ready for a database — for customer accounts, solar output tracking, or live booking schedules — Cloudflare D1 allows us to add that capability instantly, without moving to a different host or rebuilding anything.</div>
+      </div></div>
+      <div class="row"><div class="row-inner">
+        <div class="col-label">Compatibility</div>
+        <div class="col-body">The site is engineered to run smoothly on the latest versions of all major browsers (Chrome, Safari, Edge, Firefox) and across standard iOS and Android mobile devices.</div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- SECTION 02: SEO -->
+  <div class="section" id="seo">
+    <span class="section-eyebrow">Section 02</span>
+    <h1 class="section-title">Search Visibility &amp; Responsibilities</h1>
+    <div class="section-rule"></div>
+    <p>Search Engine Optimisation is an ongoing process that connects technical code, content, and real-world credibility. The clearer everyone is on their role, the more effective the results. Here is how the responsibilities break down:</p>
+
+    <h2>What I Handle</h2>
+    <div class="rows-group">
+      <div class="row"><div class="row-inner">
+        <div class="col-label">Structured data</div>
+        <div class="col-body">Hardcoding schema markup (Local Business, Product, and FAQ tags) directly into the codebase, so search engines immediately understand exactly what your business offers.</div>
+      </div></div>
+      <div class="row"><div class="row-inner">
+        <div class="col-label">Technical SEO</div>
+        <div class="col-body">Clean URL structures, proper heading hierarchies, rapid page-load speeds, and full cross-device optimisation — all built in from the start, not added as an afterthought.</div>
+      </div></div>
+      <div class="row"><div class="row-inner">
+        <div class="col-label">Google presence</div>
+        <div class="col-body">Setting up the technical structure of your Google Business Profile and verifying your site with Google Search Console, to anchor your visibility in Surrey and the South East from day one.</div>
+      </div></div>
+    </div>
+
+    <h2>Your Contribution</h2>
+    <div class="rows-group">
+      <div class="row"><div class="row-inner">
+        <div class="col-label">Your expertise</div>
+        <div class="col-body">No one knows your product, your service area, or your customers better than you do. That knowledge — the technical specs, the regions you cover, the questions people actually ask — is what drives real search rankings over time. I will help you turn it into well-structured content, but the raw material comes from you.</div>
+      </div></div>
+      <div class="row"><div class="row-inner">
+        <div class="col-label">Google Business Profile</div>
+        <div class="col-body">I will configure and optimise your Google Business Profile, but the official registration and address verification steps are yours to complete. Google requires this to confirm you are a legitimate, operating business — it is a one-time step that protects your listing permanently.</div>
+      </div></div>
+    </div>
+
+    <h2>Optional: SEO Specialist</h2>
+    <div class="rows-group">
+      <div class="row"><div class="row-inner">
+        <div class="col-label">Long-term campaigns</div>
+        <div class="col-body">Once the site is live and established, you may wish to bring in a dedicated SEO specialist for ongoing link-building, competitor tracking, digital PR, and content marketing. This is a separate discipline that sits outside the scope of this project — but the technical foundations we build now will make their work significantly more effective.</div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- SECTION 03: GETTING STARTED -->
+  <div class="section" id="getting-started">
+    <span class="section-eyebrow">Section 03</span>
+    <h1 class="section-title">Getting Started</h1>
+    <div class="section-rule"></div>
+
+    <h2 style="margin-top:0">A. Domain Registration &amp; Hosting Setup</h2>
+    <div class="rows-group">
+      <div class="row"><div class="row-inner">
+        <div class="col-label">Registering your domain</div>
+        <div class="col-body">I recommend <strong><a href="https://krystal.io/domains" target="_blank" style="color:var(--blue);text-decoration:none">krystal.io/domains</a></strong> — a reliable, UK-based registrar. I will walk you through the purchase step by step, ensuring the domain is registered in your name and stays under your full ownership.</div>
+      </div></div>
+      <div class="row"><div class="row-inner">
+        <div class="col-label">Infrastructure setup</div>
+        <div class="col-body">Once your domain is purchased, I take care of everything else. The Cloudflare and GitHub configuration is handled entirely on my side — you will not need to touch any of it.</div>
+      </div></div>
+    </div>
+
+    <h2>B. Naming &amp; Branding</h2>
+    <p>A strong business name balances two things: clarity for customers and visibility in search. Here is the framework we use:</p>
+    <div class="rows-group">
+      <div class="row"><div class="row-inner">
+        <div class="col-label">The Descriptive Anchor</div>
+        <div class="col-body">A word or phrase that makes your category instantly clear — such as <em>Solar</em>, <em>Grid</em>, <em>Power</em>, or <em>Mobile</em>. This removes friction for new customers and helps search engines categorise your business correctly from the start.</div>
+      </div></div>
+      <div class="row"><div class="row-inner">
+        <div class="col-label">The Distinctive Identifier</div>
+        <div class="col-body">A unique, memorable word paired with the anchor. This is what makes your brand recognisable and ensures you stand apart from the sea of generic green-and-blue solar competitors.</div>
+      </div></div>
+      <div class="row"><div class="row-inner">
+        <div class="col-label">How I can help</div>
+        <div class="col-body">The best names usually come from you — your instincts about the business, the words you already use with customers, or even a term from your industry. Once you have a shortlist of ideas, I can check domain availability, look at search volume data, and flag anything that might cause confusion or conflict. Bring whatever you have, rough or polished, and we will work from there.</div>
+      </div></div>
+    </div>
+
+    <h2>C. Writing Your Website Content</h2>
+    <p>Good website copy is grounded in real knowledge of your product, your customers, and your area. The process below makes contributing that as straightforward as possible:</p>
+    <div class="rows-group">
+      <div class="row"><div class="row-inner">
+        <div class="col-num">1</div>
+        <div class="col-body">I set up a <strong>Shared Google Drive Folder</strong> — the single place for all project files, notes, and reference material.</div>
+      </div></div>
+      <div class="row"><div class="row-inner">
+        <div class="col-num">2</div>
+        <div class="col-body">I drop in a simple prompts document covering your units, power capacity, use cases, and the areas you serve. It asks specific questions so you know exactly what information is needed.</div>
+      </div></div>
+      <div class="row"><div class="row-inner">
+        <div class="col-num">3</div>
+        <div class="col-body">You fill it in however feels natural — bullet points, rough notes, voice-to-text. Drop in any photos or spec sheets too. There is no right or wrong way to do this part.</div>
+      </div></div>
+      <div class="row"><div class="row-inner">
+        <div class="col-num">4</div>
+        <div class="col-body">I take everything you have given me, shape it into clear, engaging website copy, and optimise it for search engines — all while keeping your voice and the accuracy of your technical information intact.</div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- SECTION 04: MILESTONES -->
+  <div class="section" id="milestones">
+    <span class="section-eyebrow">Section 04</span>
+    <h1 class="section-title">Workflow, Milestones &amp; Revisions</h1>
+    <div class="section-rule"></div>
+    <p>The project moves through four clear milestones. Nothing moves forward until you are happy with the current stage — every decision point belongs to you.</p>
+    <div class="rows-group">
+      <div class="row"><div class="row-inner milestone">
+        <div class="col-num">1</div>
+        <div class="col-label">Technical Planning &amp; Content Gathering<span class="muted">Runs Concurrently</span></div>
+        <div class="col-body">We secure your domain, set up the Shared Drive, and work through your business name. In parallel, we outline the pages your site will need — such as Home, Product and Service Details, Technical FAQ, and Contact — to map out the clearest possible user journey.<br><br><strong>What to expect:</strong> A short kick-off conversation, access to the Shared Drive, and a prompts document to guide your content notes. There is nothing technically demanding on your side at this stage — just a conversation and some initial thinking about your business name.</div>
+      </div></div>
+      <div class="row"><div class="row-inner milestone">
+        <div class="col-num">2</div>
+        <div class="col-label">Brand Identity &amp; Logo</div>
+        <div class="col-body">Before any web work begins, we get your visual foundations right. I put together a set of creative directions covering your logo, colour palette, and typography, and present them visually so you can see how each one feels. We refine these together over as many rounds as needed. Nothing moves forward until you are fully happy with the result.<br><br><strong>What to expect:</strong> Two to three distinct visual directions to review. You give feedback, we refine, and agree on a final direction together.</div>
+      </div></div>
+      <div class="row"><div class="row-inner milestone">
+        <div class="col-num">3</div>
+        <div class="col-label">Layout Design &amp; Structure</div>
+        <div class="col-body">With your content and branding confirmed, I build out the visual layouts for each page and share them with you to review. You will be able to see exactly how the finished site will look and feel before a single line of code is written. We adjust until everything is right.<br><br><strong>What to expect:</strong> A complete, page-by-page visual walkthrough of the site. This is the stage where you review spacing, structure, and copy placement — the easiest point to make changes before the build begins.</div>
+      </div></div>
+      <div class="row"><div class="row-inner milestone">
+        <div class="col-num">4</div>
+        <div class="col-label">Build, QA &amp; Launch</div>
+        <div class="col-body">Once the layouts are signed off, I build the site. We run a final review loop on the staging site for any last text or image changes, then configure your Google Business Profile and go live.<br><br><strong>What to expect:</strong> A private staging link to review the fully built site. A short checklist of any final amends. Then your domain goes live, Google Search Console is verified, and your Google Business Profile is configured and ready.</div>
+      </div></div>
+    </div>
+    <div class="callout" style="background:var(--surface);border-color:var(--rule);margin-bottom:12px">
+      <p style="color:var(--mid)"><strong style="color:var(--ink)">Estimated timeline:</strong> The full project typically takes <strong>4 to 6 weeks</strong> from kick-off to launch. This assumes content notes, feedback, and sign-offs are returned within a few days of each request. Delays on my side are rare, but if they happen I will always let you know in advance. The timeline is a guide, not a guarantee — but it is realistic if we both stay responsive.</p>
+    </div>
+    <div class="callout">
+      <p><strong>A note on changes and flexibility:</strong> If your priorities shift or you want to add something new during the project, just say so. I will be transparent about what that means for timeline or budget, and we will agree on how to handle it together. If I have not heard from you on a key sign-off for more than 7 working days, I will pause the timeline and we will reschedule when you are ready — there is no penalty, and no pressure.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 05: PAYMENTS -->
+  <div class="section" id="payments">
+    <span class="section-eyebrow">Section 05</span>
+    <h1 class="section-title">Payment Schedule</h1>
+    <div class="section-rule"></div>
+    <p>The total cost for your Version 1 website is <strong>£650</strong>, split across four payments tied to project milestones. You only pay for the next stage once you are happy with the current one.</p>
+    <div class="pricing-wrap">
+      <table class="pricing-table">
+        <thead>
+          <tr>
+            <th>Payment</th>
+            <th>Stage</th>
+            <th>What it covers</th>
+            <th class="right">Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="deposit">
+            <td class="label">Deposit</td>
+            <td class="when">On signing</td>
+            <td>Secures your project slot. Covers Milestone 1 — domain setup, the Shared Drive, business naming, and initial content planning.</td>
+            <td class="amount">£150</td>
+          </tr>
+          <tr>
+            <td class="label">Milestone 2</td>
+            <td class="when">On brand sign-off</td>
+            <td>Covers the brand identity and logo work. Due once you have approved the final creative direction.</td>
+            <td class="amount">£150</td>
+          </tr>
+          <tr>
+            <td class="label">Milestone 3</td>
+            <td class="when">On layout sign-off</td>
+            <td>Covers the full page layout and structural design work in Figma. Due once you have approved all page layouts and the build can begin.</td>
+            <td class="amount">£175</td>
+          </tr>
+          <tr>
+            <td class="label">Milestone 4</td>
+            <td class="when">On launch</td>
+            <td>Final payment on the day the site goes live. Covers the full build, QA, Google Business Profile setup, and Search Console verification.</td>
+            <td class="amount">£175</td>
+          </tr>
+          <tr class="total">
+            <td class="label" colspan="3">Total</td>
+            <td class="amount">£650</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">
+      <p>Payments can be made by bank transfer. An invoice will be issued at each milestone stage. The deposit is non-refundable once work has commenced, but all remaining payments are only due on your approval — you are never billed for work you have not accepted.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 06: AFTER LAUNCH -->
+  <div class="section" id="after-launch">
+    <span class="section-eyebrow">Section 06</span>
+    <h1 class="section-title">After Launch</h1>
+    <div class="section-rule"></div>
+    <div class="rows-group">
+      <div class="row"><div class="row-inner">
+        <div class="col-label">30-Day Warranty</div>
+        <div class="col-body">Once the site goes live, any bugs, display issues, or technical glitches that appear in the first 30 days are resolved free of charge. You will not need to chase anything — if I see a problem, I fix it.</div>
+      </div></div>
+      <div class="row"><div class="row-inner">
+        <div class="col-label">Ongoing Support</div>
+        <div class="col-body">I am always available as your business evolves. Once the warranty period ends, any new work — adding pages, updating content, integrating new features, or adjusting pricing — is scoped and priced clearly before we begin. No surprises, and no commitment required until you are ready.</div>
+      </div></div>
+      <div class="row"><div class="row-inner">
+        <div class="col-label">Your Ownership</div>
+        <div class="col-body">Everything we build belongs to you. The domain is registered in your name, the code is yours, and you have full access to every account we set up together. If you ever want to move to a different developer in the future, everything you need will be ready to hand over.</div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="section" id="faq">
+    <span class="section-eyebrow">Reference</span>
+    <h1 class="section-title">Frequently Asked Questions</h1>
+    <div class="section-rule"></div>
+    <div class="rows-group">
+      <div class="row"><div class="row-inner">
+        <div class="col-label">What if the content takes longer than expected?</div>
+        <div class="col-body">That is completely fine. The timeline builds around your availability, not the other way around. Milestone 1 simply extends until we have what we need. The only time I formally pause the project is if there is no communication for more than 7 working days — and even then, we just pick back up when you are ready.</div>
+      </div></div>
+      <div class="row"><div class="row-inner">
+        <div class="col-label">Do I need to move to Version 2 straight after launch?</div>
+        <div class="col-body">Not at all. Version 1 is a complete, standalone website that can do its job for months or years. In fact, it is worth leaving it live for 8 to 12 weeks before adding new pages, to give Google time to index it properly. You expand only when it makes sense for your business.</div>
+      </div></div>
+      <div class="row"><div class="row-inner">
+        <div class="col-label">Will it work on older phones and tablets?</div>
+        <div class="col-body">During the QA stage (Milestone 4), the site is tested across a range of devices — modern mobiles, older handsets, iPads, Android tablets, and all major browsers — to make sure the layout and text are clear and usable for everyone.</div>
+      </div></div>
+      <div class="row"><div class="row-inner">
+        <div class="col-label">Who owns everything once we launch?</div>
+        <div class="col-body">You do. The domain is in your own Krystal account, the codebase is yours, and every platform account we create is registered to you. I handle the technical setup, but you hold full ownership and control throughout.</div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- TECHNICAL TERMS -->
+  <div class="section" id="terms">
+    <span class="section-eyebrow">Reference</span>
+    <h1 class="section-title">Technical Terms</h1>
+    <div class="section-rule"></div>
+    <div class="rows-group">
+      <div class="row"><div class="row-inner">
+        <div class="col-label">Domain Name</div>
+        <div class="col-body">Your website's address on the internet (e.g., <em>yourbusinessname.co.uk</em>). It is what people type into a browser to find you.</div>
+      </div></div>
+      <div class="row"><div class="row-inner">
+        <div class="col-label">Website Hosting</div>
+        <div class="col-body">The digital space where your website files live. If the domain name is your street address, hosting is the actual plot of land where your digital house is built.</div>
+      </div></div>
+      <div class="row"><div class="row-inner">
+        <div class="col-label">Content Management System (CMS)</div>
+        <div class="col-body">A private dashboard that lets you log in and edit text, swap images, or update prices on your live website yourself without needing to touch any underlying code.</div>
+      </div></div>
+      <div class="row"><div class="row-inner">
+        <div class="col-label">Sitemap</div>
+        <div class="col-body">A structural blueprint or list of the pages that will make up your website, helping us plan the layout before design work starts.</div>
+      </div></div>
+      <div class="row"><div class="row-inner">
+        <div class="col-label">Astro</div>
+        <div class="col-body">The modern programming framework used to build the skeleton of your website. It is designed to strip away unnecessary, heavy computer code, making pages load significantly faster than standard setups.</div>
+      </div></div>
+      <div class="row"><div class="row-inner">
+        <div class="col-label">Cloudflare Pages</div>
+        <div class="col-body">A highly secure, global hosting network where your website's files live. Instead of relying on a single slow computer server, it copies your website across hundreds of secure data centres so it loads instantly for a visitor anywhere.</div>
+      </div></div>
+      <div class="row"><div class="row-inner">
+        <div class="col-label">D1 Database</div>
+        <div class="col-body">A serverless database system built by Cloudflare. It allows us to securely store structural business data (like customer logins or booking diaries) in the future without needing to move to an expensive external database provider.</div>
+      </div></div>
+      <div class="row"><div class="row-inner">
+        <div class="col-label">Figma</div>
+        <div class="col-body">A professional digital design tool where I build the static visual layouts of your pages for you to review before any coding starts.</div>
+      </div></div>
+      <div class="row"><div class="row-inner">
+        <div class="col-label">Motion</div>
+        <div class="col-body">A lightweight web animation library. It allows us to add subtle visual movements (like smooth text fades or scrolling transitions) without slowing down the performance of the page.</div>
+      </div></div>
+      <div class="row"><div class="row-inner">
+        <div class="col-label">React</div>
+        <div class="col-body">A powerful programming tool used to build interactive components on a website, such as dynamic enquiry forms or complex product calculators.</div>
+      </div></div>
+      <div class="row"><div class="row-inner">
+        <div class="col-label">Schema Markup / Structured Data</div>
+        <div class="col-body">Hidden code written specifically for search engines. It tells Google exactly what your page means — explicitly telling it "this number is a price" or "this text is an FAQ answer" — which helps your business show up prominently in search results.</div>
+      </div></div>
+      <div class="row"><div class="row-inner">
+        <div class="col-label">Staging Site</div>
+        <div class="col-body">A private, temporary web link where your website is built and tested behind the scenes. Only you and I can see it, allowing us to polish everything before making it visible to the public.</div>
+      </div></div>
+      <div class="row"><div class="row-inner">
+        <div class="col-label">Tailwind CSS v4</div>
+        <div class="col-body">A modern styling system used to program the visual look of your site, controlling exact spacing, typography, colours, and layout alignments across different screen sizes.</div>
+      </div></div>
+    </div>
+
+    <div class="next-steps">
+      <div class="next-steps-heading">Ready to begin?</div>
+      <div class="next-steps-row">
+        <div class="next-steps-num">01</div>
+        <div class="next-steps-text"><strong>Read through this guide</strong> at your own pace. If anything is unclear, just get in touch.</div>
+      </div>
+      <div class="next-steps-row">
+        <div class="next-steps-num">02</div>
+        <div class="next-steps-text"><strong>Start thinking about your business name.</strong> Even a rough list of words or ideas is a great starting point for our first working session.</div>
+      </div>
+      <div class="next-steps-row">
+        <div class="next-steps-num">03</div>
+        <div class="next-steps-text"><strong>Register your domain</strong> at <a href="https://krystal.io/domains" target="_blank" style="color:var(--blue)">krystal.io/domains</a>. I will send you a short step-by-step guide to make this straightforward.</div>
+      </div>
+      <div class="next-steps-row">
+        <div class="next-steps-num">04</div>
+        <div class="next-steps-text"><strong>We get to work.</strong> Once Milestone 1 is underway, you will have access to the Shared Drive and the project is properly under way.</div>
+      </div>
+    </div>
+  </div>
+
+</main>
+</body>
+</html>
