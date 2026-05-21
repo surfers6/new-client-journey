@@ -16,7 +16,7 @@
     const correctPass = "design2026"; // Change these to your liking
 
     // Check if the client already logged in previously
-    if (localStorage.getItem("client_authenticated") === "true") {
+    if (sessionStorage.getItem("client_authenticated") === "true") {
       document.documentElement.style.display = "block"; // Show page immediately
       return;
     }
@@ -38,7 +38,7 @@
       }
 
       if (username === correctUser && password === correctPass) {
-        localStorage.setItem("client_authenticated", "true"); // Remember the session
+        sessionStorage.setItem("client_authenticated", "true"); // Remember the session
         document.documentElement.style.display = "block";
         break;
       } else {
@@ -194,6 +194,49 @@ body {
 .nav-link:hover {
   color: var(--blue);
   border-bottom-color: var(--blue-dim);
+}
+
+.nav-hamburger {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  width: 100%;
+}
+
+.nav-hamburger-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--soft);
+  letter-spacing: 0.04em;
+}
+
+.nav-hamburger-icon {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nav-hamburger-icon span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--soft);
+  border-radius: 2px;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.nav-hamburger.open .nav-hamburger-icon span:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+.nav-hamburger.open .nav-hamburger-icon span:nth-child(2) {
+  opacity: 0;
+}
+.nav-hamburger.open .nav-hamburger-icon span:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
 }
 
 /* ── Main content ── */
@@ -521,9 +564,30 @@ p:last-child { margin-bottom: 0; }
 
   .cover-footer-r { text-align: left; }
 
+  .nav-hamburger {
+    display: flex;
+  }
+
+  .nav-inner {
+    display: none;
+    flex-direction: column;
+    padding: 8px 0 12px;
+  }
+
+  .nav-inner.open {
+    display: flex;
+  }
+
   .nav-link {
-    padding: 12px 12px;
-    font-size: 11px;
+    padding: 10px 20px;
+    font-size: 13px;
+    border-bottom: none;
+    border-left: 2px solid transparent;
+  }
+
+  .nav-link:hover {
+    border-bottom-color: transparent;
+    border-left-color: var(--blue);
   }
 }
 </style>
@@ -542,7 +606,13 @@ p:last-child { margin-bottom: 0; }
 
 <!-- NAV -->
 <nav class="nav">
-  <div class="nav-inner">
+  <button class="nav-hamburger" id="navToggle" aria-label="Toggle navigation">
+    <span class="nav-hamburger-label">Menu</span>
+    <span class="nav-hamburger-icon">
+      <span></span><span></span><span></span>
+    </span>
+  </button>
+  <div class="nav-inner" id="navMenu">
     <a class="nav-link" href="#overview">Overview</a>
     <a class="nav-link" href="#technical">Technical</a>
     <a class="nav-link" href="#seo">Search</a>
@@ -554,6 +624,22 @@ p:last-child { margin-bottom: 0; }
     <a class="nav-link" href="#terms">Terms</a>
   </div>
 </nav>
+<script>
+  (function() {
+    var toggle = document.getElementById('navToggle');
+    var menu = document.getElementById('navMenu');
+    toggle.addEventListener('click', function() {
+      var open = menu.classList.toggle('open');
+      toggle.classList.toggle('open', open);
+    });
+    menu.querySelectorAll('.nav-link').forEach(function(link) {
+      link.addEventListener('click', function() {
+        menu.classList.remove('open');
+        toggle.classList.remove('open');
+      });
+    });
+  })();
+</script>
 
 <main class="main">
 
