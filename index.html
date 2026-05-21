@@ -7,7 +7,7 @@
 <title>Digital Foundation — Project Onboarding Guide</title>
 <style>
   /* Hides the entire page content by default while checking login status */
-  body { display: none; }
+  html { display: none; }
 </style>
 
 <script>
@@ -39,7 +39,7 @@
 
       if (username === correctUser && password === correctPass) {
         localStorage.setItem("client_authenticated", "true"); // Remember the session
-        alert("Welcome! Loading your journey plan.");
+        document.documentElement.style.display = "block";
         break;
       } else {
         alert("Incorrect credentials. Please try again.");
