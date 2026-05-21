@@ -3,7 +3,50 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
 <title>Digital Foundation — Project Onboarding Guide</title>
+<style>
+  /* Hides the entire page content by default while checking login status */
+  body { display: none; }
+</style>
+
+<script>
+  (function() {
+    const correctUser = "matthew";
+    const correctPass = "design2026"; // Change these to your liking
+
+    // Check if the client already logged in previously
+    if (localStorage.getItem("client_authenticated") === "true") {
+      document.documentElement.style.display = "block"; // Show page immediately
+      return;
+    }
+
+    // Prompt logic if not already authenticated
+    while (true) {
+      let username = prompt("Please enter your Username to view the Journey Plan:");
+      if (username === null) {
+        alert("Access Denied.");
+        window.location.href = "about:blank"; // Redirects away
+        return;
+      }
+
+      let password = prompt("Please enter your Password:");
+      if (password === null) {
+        alert("Access Denied.");
+        window.location.href = "about:blank";
+        return;
+      }
+
+      if (username === correctUser && password === correctPass) {
+        localStorage.setItem("client_authenticated", "true"); // Remember the session
+        alert("Welcome! Loading your journey plan.");
+        break;
+      } else {
+        alert("Incorrect credentials. Please try again.");
+      }
+    }
+  })();
+</script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap');
 
